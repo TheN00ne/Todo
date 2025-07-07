@@ -1,19 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { configureStore } from "@reduxjs/toolkit";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { App } from "./components/app";
+import todoAppSlice from "./reducers/todoAppReducer";
+import todoGroupSlice from "./reducers/todoGroupReducer";
+import todoTaskSlice from "./reducers/todoTaskReducer";
+import { TodoGroup } from "./components/todoGroup";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  document.getElementById("root") as HTMLElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const store = configureStore({
+  reducer: {
+    todoAppSlice: todoAppSlice,
+    todoGroupSlice: todoGroupSlice,
+    todoTaskSlice: todoTaskSlice,
+  },
+});
+
+export type rootState = ReturnType<typeof store.getState>;
+
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
