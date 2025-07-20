@@ -1,29 +1,31 @@
 import { useDispatch } from "react-redux";
-import React, { useState } from "react";
+import {
+  ITodoGroup,
+  removeTrashGroup,
+  returnTrashGroup,
+} from "../reducers/todoAppReducer";
 import { Link } from "react-router-dom";
-import { ITodoGroup, removeGroupe } from "../reducers/todoAppReducer";
-import { ChangeMenu } from "./changeMenu";
 import UIStyles from "../styles/uiStyles.module.css";
-import todoStyle from "../styles/todoStyles.module.css";
+import todoStyles from "../styles/todoStyles.module.css";
+import { useState } from "react";
 
-export const TodoGroup: React.FC<ITodoGroup> = (props) => {
+export const TodoTrashGroup: React.FC<ITodoGroup> = (props) => {
   const dispatch = useDispatch();
 
-  const [isShowChangeMenu, setIsShowChangeMenu] = useState<boolean>(false);
   const [isShowMenu, setIsShowMenu] = useState<boolean>(false);
 
   return (
-    <div className={todoStyle.todoElement}>
-      <div className={todoStyle.todoHeader}>
+    <div className={todoStyles.todoElement}>
+      <div className={todoStyles.todoHeader}>
         <Link
-          to={`group/${props.id}`}
+          to={`/trash/group/${props.id}`}
           title={props.title}
-          className={todoStyle.title}
+          className={todoStyles.title}
         >
           {props.title}
         </Link>
         <div
-          className={todoStyle.todoMenuButton}
+          className={todoStyles.todoMenuButton}
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             setIsShowMenu(!isShowMenu);
           }}
@@ -50,21 +52,21 @@ export const TodoGroup: React.FC<ITodoGroup> = (props) => {
           </svg>
         </div>
       </div>
-      <div className={todoStyle.todoBody}>
-        <p className={todoStyle.description}>{props.description}</p>
+      <div className={todoStyles.todoBody}>
+        <p className={todoStyles.description}>{props.description}</p>
       </div>
-      <div className={todoStyle.todoFooter}>
-        <div className={todoStyle.childCount}>
+      <div className={todoStyles.todoFooter}>
+        <div className={todoStyles.childCount}>
           Tasks: {props.todoTasksArr.length}
         </div>
       </div>
 
       {isShowMenu ? (
-        <div className={todoStyle.todoHiddenMenus}>
+        <div className={todoStyles.todoHiddenMenus}>
           <button
-            className={`${todoStyle.trashBtn} ${todoStyle.menuButton}`}
+            className={`${todoStyles.trashBtn} ${todoStyles.menuButton}`}
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              dispatch(removeGroupe(props));
+              dispatch(removeTrashGroup(props));
             }}
           >
             <svg
@@ -85,40 +87,36 @@ export const TodoGroup: React.FC<ITodoGroup> = (props) => {
             </svg>
           </button>
           <button
-            className={`${todoStyle.menuButton}`}
+            className={`${todoStyles.menuButton}`}
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              setIsShowChangeMenu(true);
+              dispatch(
+                returnTrashGroup({
+                  id: props.id,
+                  title: props.title,
+                  description: props.description,
+                  todoTasksArr: props.todoTasksArr,
+                })
+              );
             }}
           >
             <svg
-              className={UIStyles.paint}
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="30"
-              viewBox="0 0 24 24"
+              viewBox="0 0 48 48"
             >
               <g
                 fill="none"
-                stroke="currentColor"
+                stroke="#000"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
+                stroke-width="4"
               >
-                <path d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" />
-                <path d="M19 6h1a2 2 0 0 1 2 2a5 5 0 0 1-5 5h-5v2m-2 1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />
+                <path d="M12.9998 8L6 14L12.9998 21" />
+                <path d="M6 14H28.9938C35.8768 14 41.7221 19.6204 41.9904 26.5C42.2739 33.7696 36.2671 40 28.9938 40H11.9984" />
               </g>
             </svg>
           </button>
-
-          {isShowChangeMenu ? (
-            <ChangeMenu
-              targetElementId={props.id}
-              targetElementInterface="ITodoGroup"
-              isMenuClose={setIsShowChangeMenu}
-              title={props.title}
-              description={props.description}
-            />
-          ) : null}
         </div>
       ) : null}
     </div>
