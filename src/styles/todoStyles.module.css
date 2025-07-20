@@ -1,0 +1,170 @@
+@keyframes jump {
+  0% {
+    transform: translateY(0px);
+  }
+  30% {
+    transform: translateY(2px);
+  }
+  60% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+body {
+  background-color: #14131a;
+}
+
+.todoElement {
+  display: grid;
+  grid-template-rows: 2fr 8fr 1fr;
+  position: relative;
+  height: 250px;
+  background-color: #29293c;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
+.todoElement .todoHeader {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+}
+.todoElement .todoHeader .title {
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition-duration: 0.25s;
+}
+.todoElement .todoHeader .title:hover {
+  text-shadow: 0px 0px 5px #e4e4e4;
+}
+.todoElement .todoBody .description {
+  height: 120px;
+  word-break: break-all;
+  word-wrap: nowrap;
+  overflow-y: auto;
+}
+.todoElement .todoFooter {
+  display: grid;
+}
+.todoElement .todoFooter .childCount {
+  justify-self: left;
+  padding: 3px;
+  background-color: #e4e4e4;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+.todoMenuButton {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  margin: 10px;
+  top: 0%;
+  right: 0%;
+  cursor: pointer;
+}
+.todoMenuButton:hover {
+  animation-name: jump;
+  animation-duration: 0.4s;
+}
+
+.todoHiddenMenus {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  position: absolute;
+  right: -120px;
+  top: -50px;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 20px;
+  background-color: #3c3c50;
+  width: 100px;
+  height: 150px;
+  z-index: 1;
+}
+.todoHiddenMenus .trashBtn {
+  background-color: #c60000;
+}
+.todoHiddenMenus .menuButton {
+  justify-self: center;
+  width: 60px;
+  height: 60px;
+  border: 2px solid black;
+  border-radius: 20px;
+  transition-duration: 0.25s;
+}
+.todoHiddenMenus .menuButton:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 5px 10px black;
+}
+
+.blockGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px;
+}
+
+.todoBlock {
+  height: 200px;
+  position: relative;
+  display: grid;
+  grid-template-rows: 2fr 4fr;
+  justify-self: center;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  width: 500px;
+}
+.todoBlock .blockHeader {
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+}
+.todoBlock .blockHeader .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.todoBlock .blockHeader .todoMenuButton {
+  justify-self: end;
+}
+.todoBlock .blockBody {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.todoBlock .blockBody .description {
+  align-self: center;
+  height: 100px;
+  word-wrap: break-word;
+  overflow: auto;
+}
+.todoBlock .blockBody .doneField {
+  justify-self: center;
+  align-self: center;
+  width: 50px;
+  height: 50px;
+  background-color: #e4e4e4;
+  border: 2px solid black;
+  border-radius: 100%;
+  float: right;
+  cursor: pointer;
+  transition-duration: 0.25s;
+}
+.todoBlock .blockBody .doneField:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 2px 10px black;
+}
+.todoBlock_low {
+  background-color: #3a3ac9;
+}
+.todoBlock_medium {
+  background-color: #c9bc23;
+}
+.todoBlock_high {
+  background-color: #b12626;
+}/*# sourceMappingURL=todoStyles.module.css.map */
